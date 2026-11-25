@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>名言助手</title>
+    <meta name="apple-mobile-web-app-title" content="名言助手">
+    <meta name="application-name" content="名言助手">
+    <meta name="author" content="名言">
+    <meta name="theme-color" content="#F2F0F8" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#08070F" media="(prefers-color-scheme: dark)">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+    <script>
+    window.__AUTHOR_HOME__ = "https://tern.cc/MYDZ";
+    function __openExternal(e) {
+      var url = window.__AUTHOR_HOME__ || "https://tern.cc/MYDZ";
+      try {
+        if (e && e.preventDefault) e.preventDefault();
+        if (typeof window.__NATIVE_OPEN__ === "function") { window.__NATIVE_OPEN__(url); return false; }
+        var w = window.open(url, "_blank");
+        if (!w) window.location.href = url;
+      } catch (err) { window.location.href = url; }
+      return false;
+    }
+    </script>
+    <script>
+    (function() {
+        try {
+            var t = localStorage.getItem('target_theme_v1');
+            if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+        } catch (e) {}
+    })();
+    </script>
+    <script src="js/jszip.min.js"></script>
+    <link rel="stylesheet" href="css/style.css?v=20261019-3">
+    <link rel="stylesheet" href="css/liquid-glass.css?v=20261126-2">
+</head>
+<body>
+
+<header class="header">
+        <div class="header-content">
+            <span class="header-title">名言助手</span>
+            <div class="header-actions">
+                <a class="header-btn" href="https://tern.cc/MYDZ" target="_blank" rel="noopener noreferrer" title="联系作者 名言" onclick="return __openExternal(event)" style="font-size: 14px; padding: 0 12px; width: auto; white-space: nowrap; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; color: #946CEE; border-color: rgba(148, 108, 238, 0.4);">🌐 联系作者</a>
+                <div class="settings-wrap">
+                    <button class="header-btn" id="settingsBtn" aria-haspopup="true" aria-expanded="false" aria-controls="settingsMenu" type="button" title="设置" aria-label="设置" style="width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    </button>
+                    <div class="settings-menu" id="settingsMenu">
+                        <button class="settings-item" id="appSettingsBtn" type="button">⚙️ 导出设置</button>
+                        <button class="settings-item" id="supportBtn" type="button">📢 公告</button>
+                        <button class="settings-item" id="themeToggleBtn" type="button" title="切换深色模式" aria-label="切换深色模式">
+                            <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+                            <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                            主题切换
+                        </button>
+                        <button class="settings-item" id="resetBtn" disabled title="清空所有 EXIF 参数与设置">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="1 4 1 10 7 10"/>
+                                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                            </svg>
+                            清空参数
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="upload-wrapper" id="uploadWrapper">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon-wrapper">
+                    <svg class="upload-icon" viewBox="0 0 24 24">
+                        <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                    </svg>
+                </div>
+                <div class="upload-title">添加要处理的照片或视频</div>
+                <div class="upload-subtitle">点击或拖拽 · JPG / PNG / HEIC / MOV / MP4</div>
+                <input type="file" id="fileInput" accept="image/*,.mov,.mp4,.m4v" multiple>
+            </div>
+        </div>
+
+        <div class="files-section" id="filesSection">
+            <div class="section-header">
+                <span class="section-title">已选择 <span id="fileCount">0</span> 个文件</span>
+                <div class="files-header-actions">
+                    <button class="change-image-btn" id="addMoreBtn">添加更多</button>
+                    <button class="change-image-btn clear-files-btn" id="clearBtn" type="button" title="仅清空已选文件，保留 EXIF 参数">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                        清空文件
+                    </button>
+                </div>
+            </div>
+            <div class="files-list" id="filesList"></div>
+        </div>
+
+        <!-- 设备选择弹窗 -->
+        <div class="modal-overlay device-modal" id="deviceModal">
+            <div class="modal-content device-modal-content">
+                <div class="modal-header">
+                    <span class="modal-title">选择设备型号</span>
+                    <button class="modal-close" id="deviceModalClose" type="button">×</button>
+                </div>
+                <div class="modal-body device-modal-body">
+                    <div class="recent-devices" id="recentDevicesSection">
+                        <div class="recent-devices-title">最近使用</div>
+                        <div class="recent-devices-list" id="recentDevicesList"></div>
+                    </div>
+                    <div class="preset-tabs">
+                        <button class="preset-tab active" data-brand="apple">🍎 Apple</button>
+                        <button class="preset-tab" data-brand="vivo">vivo</button>
+                        <button class="preset-tab" data-brand="iqoo">iQOO</button>
+                        <button class="preset-tab" data-brand="oppo">OPPO</button>
+                        <button class="preset-tab" data-brand="oneplus">一加</button>
+                        <button class="preset-tab" data-brand="xiaomi">小米</button>
+                        <button class="preset-tab" data-brand="redmi">红米</button>
+                        <button class="preset-tab" data-brand="huawei">华为</button>
+                        <button class="preset-tab" data-brand="honor">荣耀</button>
+                        <button class="preset-tab" data-brand="samsung">三星</button>
+                        <button class="preset-tab" data-brand="realme">realme</button>
+                    </div>
+                    <div class="preset-search" id="presetSearch">
+                        <svg class="preset-search-icon" viewBox="0 0 24 24" width="16" height="16"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                        <input type="text" class="preset-search-input" id="presetSearchInput" placeholder="搜索 iPhone / iPad 型号..." autocomplete="off">
+                        <button class="preset-search-clear" id="presetSearchClear" type="button" aria-label="清空">
+                            <svg viewBox="0 0 24 24" width="14" height="14"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                        </button>
+                    </div>
+                    <div class="preset-list" id="presetList"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-sections active" id="formSections">
+            <div class="workflow-bar" id="workflowBar">
+                <span class="workflow-step" data-step="files">1 选文件</span>
+                <span class="workflow-arrow">›</span>
+                <span class="workflow-step" data-step="device">2 选设备</span>
+                <span class="workflow-arrow">›</span>
+                <span class="workflow-step" data-step="settings">3 设参数</span>
+                <span class="workflow-arrow">›</span>
+                <span class="workflow-step" data-step="export">4 导出</span>
+            </div>
+
+            <div class="simple-hero">
+                <div class="simple-hero-thumb" id="simpleHeroThumb">📷</div>
+                <div class="simple-hero-info">
+                    <div class="simple-hero-device placeholder" id="simpleHeroDevice">选择拍摄设备</div>
+                    <div class="simple-hero-meta" id="simpleHeroMeta">先选文件，再选设备即可导出</div>
+                </div>
+                <button type="button" class="simple-hero-preview" id="simpleHeroPreview" title="预览效果">预览</button>
+                <div class="hero-param-strip" id="simpleHeroParams" hidden></div>
+            </div>
+
+            <div class="lens-shortcuts">
+                <div class="lens-shortcuts-btns" id="lensButtons">
+                    <button class="lens-btn active" type="button" data-lens="main">
+                        <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="3"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                        <span>主摄像头</span>
+                    </button>
+                    <button class="lens-btn" type="button" data-lens="main2">
+                        <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="3"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                        <span>主相机</span>
+                    </button>
+                    <button class="lens-btn" type="button" data-lens="front">
+                        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        <span>前置摄像头</span>
+                    </button>
+                    <button class="lens-btn" type="button" data-lens="back">
+                        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M20 5h-3.17l-1.24-1.35c-.37-.41-.91-.65-1.47-.65H9.88c-.56 0-1.1.24-1.47.65L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-8 13c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+                        <span>长焦摄像头</span>
+                    </button>
+                    <button class="lens-btn" type="button" data-lens="wide">
+                        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z"/></svg>
+                        <span>广角摄像头</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <div class="settings-group-title">拍摄信息</div>
+                <div class="simple-settings settings-list" id="simpleSettings">
+                <button type="button" class="setting-row" id="simpleDeviceRow">
+                    <span class="setting-row-icon pink">📱</span>
+                    <span class="setting-row-body">
+                        <span class="setting-row-label">拍摄设备</span>
+                        <span class="setting-row-value placeholder" id="simpleDeviceValue">点击选择手机型号</span>
+                    </span>
+                    <span class="setting-row-clear" id="deviceClearBtn" role="button" aria-label="清除设备与镜头参数" hidden>×</span>
+                    <span class="setting-row-chevron">›</span>
+                </button>
+                <button type="button" class="setting-row" id="simpleTimeRow">
+                    <span class="setting-row-icon blue">🕐</span>
+                    <span class="setting-row-body">
+                        <span class="setting-row-label">拍摄时间</span>
+                        <span class="setting-row-value placeholder" id="simpleTimeValue">点击设置</span>
+                    </span>
+                    <span class="setting-row-chevron">›</span>
+                </button>
+                <button type="button" class="setting-row" id="simpleLocationRow">
+                    <span class="setting-row-icon green">📍</span>
+                    <span class="setting-row-body">
+                        <span class="setting-row-label">拍摄位置</span>
+                        <span class="setting-row-value placeholder" id="simpleLocationValue">可选 · 点击设置</span>
+                    </span>
+                    <span class="setting-row-chevron">›</span>
+                </button>
+                <button type="button" class="setting-row" id="advLensRow">
+                    <span class="setting-row-icon orange">🔭</span>
+                    <span class="setting-row-body">
+                        <span class="setting-row-label">镜头详情</span>
+                        <span class="setting-row-value placeholder" id="advLensValue">焦距 · 光圈 · 镜头型号</span>
+                    </span>
+                    <span class="setting-row-chevron">›</span>
+                </button>
+                <button type="button" class="setting-row" id="advParamsRow">
+                    <span class="setting-row-icon teal">🎚</span>
+                    <span class="setting-row-body">
+                        <span class="setting-row-label">拍摄参数</span>
+                        <span class="setting-row-value placeholder" id="advParamsValue">ISO · 快门 · 光圈 · 曝光补偿 · 等效焦距</span>
+                    </span>
+                    <span class="setting-row-chevron">›</span>
+                </button>
+            </div>
+
+            <div class="settings-group">
+                <div class="settings-group-title">输出设置</div>
+                <div class="simple-settings settings-list">
+                <button type="button" class="setting-row" id="advResolutionRow">
+                    <span class="setting-row-icon indigo">📐</span>
+                    <span class="setting-row-body">
+                        <span class="setting-row-label">分辨率</span>
+                        <span class="setting-row-value placeholder" id="advResolutionValue">跟随原图或自定义</span>
+                    </span>
+                    <span class="setting-row-chevron">›</span>
+                </button>
+                <button type="button" class="setting-row" id="simpleFilesizeRow">
+                    <span class="setting-row-icon purple">📦</span>
+                    <span class="setting-row-body">
+                        <span class="setting-row-label">文件大小</span>
+                        <span class="setting-row-value" id="simpleFilesizeValue">未调整</span>
+                    </span>
+                    <span class="setting-row-chevron">›</span>
+                </button>
+                <button type="button" class="setting-row" id="exportNamingRow">
+                    <span class="setting-row-icon indigo">🏷️</span>
+                    <span class="setting-row-body">
+                        <span class="setting-row-label">导出命名</span>
+                        <span class="setting-row-value" id="exportNamingValue">IMG 标准名</span>
+                    </span>
+                    <span class="setting-row-chevron">›</span>
+                </button>
+                <button type="button" class="setting-row" id="simpleVideoRow" hidden>
+                    <span class="setting-row-icon indigo">🎬</span>
+                    <span class="setting-row-body">
+                        <span class="setting-row-label">视频信息</span>
+                        <span class="setting-row-value placeholder" id="simpleVideoValue">描述 · 版权</span>
+                    </span>
+                    <span class="setting-row-chevron">›</span>
+                </button>
+                </div>
+            </div>
+
+            <!-- GPS 区域：直接展开显示，不收起 -->
+            <div class="gps-section collapsed" id="gpsSection">
+                <div class="gps-section-header" id="gpsSectionHeader">
+                    <svg class="form-card-icon" viewBox="0 0 24 24" width="18" height="18"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    <span>拍摄位置</span>
+                </div>
+                <div class="gps-section-body">
+                    <div class="form-group full-width gps-coords-block">
+                        <div class="gps-coords-head">
+                            <label class="form-label">经纬度 / 海拔（可选）</label>
+                            <button type="button" class="gps-clear-btn" id="gpsClearBtn">清除</button>
+                        </div>
+                        <button type="button" class="gps-search-btn" id="gpsLocateBtn" style="width:100%; margin-bottom:10px;">📍 获取当前位置</button>
+                        <div class="gps-coords-grid">
+                            <div class="form-group">
+                                <label class="form-label">纬度 (°)</label>
+                                <input type="number" class="form-input" id="gpsLatitudeInput" placeholder="如 31.2304" step="0.000001" min="-90" max="90" inputmode="decimal">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">经度 (°)</label>
+                                <input type="number" class="form-input" id="gpsLongitudeInput" placeholder="如 121.4737" step="0.000001" min="-180" max="180" inputmode="decimal">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">海拔 (m)</label>
+                                <input type="number" class="form-input" id="gpsAltitude" placeholder="如 50" step="0.1" value="0">
+                            </div>
+                        </div>
+                        <div class="gps-coords-hint">可直接输入数字；不熟悉的话用下方搜索或点地图选点也行。</div>
+                    </div>
+                    <div class="form-group full-width">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                            <label class="form-label" style="margin-bottom:0;">搜索位置</label>
+                            <span class="amap-key-link" id="amapKeyToggle" role="button">自定义高德 Key</span>
+                        </div>
+                        <div style="display:flex;gap:8px;">
+                            <input type="text" class="form-input" id="gpsSearchInput" placeholder="搜索地点，如：上海酒店、西湖" style="flex:1;">
+                            <button type="button" class="gps-search-btn" id="gpsSearchBtn">搜索</button>
+                        </div>
+                        <div id="amapKeyRow" style="display:none; margin-top:8px; gap:8px; align-items:center;">
+                            <input type="text" class="form-input" id="amapKeyInput" placeholder="填入高德 Web服务 Key，留空恢复默认" style="flex:1;" autocomplete="off">
+                            <button type="button" class="gps-search-btn" id="amapKeySave">保存</button>
+                        </div>
+                        <div class="gps-search-results" id="gpsSearchResults"></div>
+                        <div class="gps-hot-cities">
+                            <button type="button" class="gps-city-btn" data-lat="31.2304" data-lng="121.4737" data-label="上海">上海</button>
+                            <button type="button" class="gps-city-btn" data-lat="39.9042" data-lng="116.4074" data-label="北京">北京</button>
+                            <button type="button" class="gps-city-btn" data-lat="23.1291" data-lng="113.2644" data-label="广东省 · 广州">广州</button>
+                            <button type="button" class="gps-city-btn" data-lat="22.5431" data-lng="114.0579" data-label="广东省 · 深圳">深圳</button>
+                            <button type="button" class="gps-city-btn" data-lat="30.5728" data-lng="104.0668" data-label="四川省 · 成都">成都</button>
+                            <button type="button" class="gps-city-btn" data-lat="30.2741" data-lng="120.1551" data-label="浙江省 · 杭州">杭州</button>
+                            <button type="button" class="gps-city-btn" data-lat="32.0603" data-lng="118.7969" data-label="江苏省 · 南京">南京</button>
+                            <button type="button" class="gps-city-btn" data-lat="29.5630" data-lng="106.5516" data-label="重庆市">重庆</button>
+                            <button type="button" class="gps-city-btn" data-lat="30.5928" data-lng="114.3055" data-label="湖北省 · 武汉">武汉</button>
+                            <button type="button" class="gps-city-btn" data-lat="34.3416" data-lng="108.9398" data-label="陕西省 · 西安">西安</button>
+                            <button type="button" class="gps-city-btn" data-lat="28.2282" data-lng="112.9388" data-label="湖南省 · 长沙">长沙</button>
+                            <button type="button" class="gps-city-btn" data-lat="18.2528" data-lng="109.5120" data-label="海南省 · 三亚">三亚</button>
+                        </div>
+                    </div>
+                    <div class="form-group full-width" style="margin-top:12px;">
+                        <label class="form-label">点击地图选取位置</label>
+                        <div id="gpsMap" class="gps-map"></div>
+                    </div>
+                    <div class="gps-coords-display" id="gpsCoordsDisplay" style="display:none;">
+                        <div class="gps-coord-tag">
+                            <span>📍</span>
+                            <span id="gpsDisplayText">未选择位置</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 设置弹窗：点击标签按钮弹出对应设置内容 -->
+            <div class="modal-overlay" id="settingsModal">
+                <div class="modal-content settings-modal-content">
+                    <div class="modal-header">
+                        <span class="modal-title" id="settingsModalTitle">时间设置</span>
+                        <button class="modal-close" id="settingsModalClose" type="button">×</button>
+                    </div>
+                    <div class="modal-body settings-modal-body">
+                        <div class="settings-panel" data-panel="general" style="display:none;">
+                            <div class="form-group">
+                                <label class="form-label" for="photoOrientationMode">照片方向</label>
+                                <select id="photoOrientationMode" class="form-input">
+                                    <option value="preserve">保留原图方向（JPG 无损）</option>
+                                    <option value="normalize">自动转正像素（兼容模式）</option>
+                                </select>
+                                <p class="setting-hint">自动处理旋转和镜像方向。若接收照片的应用忽略方向标记，可选兼容模式。</p>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="jpegQuality">JPG 编码质量 <span id="jpegQualityValue">95%</span></label>
+                                <input id="jpegQuality" type="range" min="60" max="100" step="1" value="95" style="width:100%;">
+                                <p class="setting-hint">用于格式转换、调整分辨率或兼容模式；无损导出的 JPG 保留原始画质。</p>
+                            </div>
+                            <p class="setting-hint">设置自动保存到当前浏览器。</p>
+                        </div>
+                        <div class="settings-panel" data-panel="time">
+                            <div class="form-group">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                    <label class="form-label" style="margin-bottom:0;">拍摄时间</label>
+                                    <button type="button" class="gps-clear-btn" id="timeClearBtn" style="margin-top:0; padding:4px 10px; font-size:12px;">清除</button>
+                                </div>
+                                <div class="datetime-input-wrapper">
+                                    <input type="datetime-local" class="form-input" id="dateTimeOriginal">
+                                    <span class="datetime-placeholder" id="datetimePlaceholder">点击修改拍摄时间~</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-panel" data-panel="lens" style="display:none;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                                <div style="font-size:14px; font-weight:600; color:var(--text);">镜头详情</div>
+                                <button type="button" class="gps-clear-btn" id="lensClearBtn" style="padding:4px 10px; font-size:12px;">清除</button>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">设备厂商</label>
+                                    <input type="text" class="form-input" id="make" placeholder="如 Apple">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">设备型号</label>
+                                    <input type="text" class="form-input" id="model" placeholder="如 iPhone 18 Pro">
+                                </div>
+                                <div class="form-group full-width">
+                                    <label class="form-label">镜头型号</label>
+                                    <input type="text" class="form-input" id="lensModel" placeholder="支持中文直写，如 主摄像头 2.22mm f/2.2">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">焦距 (mm)</label>
+                                    <input type="text" class="form-input" id="focalLength" placeholder="如 6.765">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">系统版本</label>
+                                    <input type="text" class="form-input" id="software" placeholder="如 iOS 27.0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-panel" data-panel="params" style="display:none;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                                <div style="font-size:14px; font-weight:600; color:var(--text);">拍摄参数</div>
+                                <button type="button" class="gps-clear-btn" id="paramsClearBtn" style="padding:4px 10px; font-size:12px;">清除</button>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">感光度 (ISO)</label>
+                                    <input type="number" class="form-input" id="isoInput" placeholder="如 50" min="1" inputmode="numeric">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">等效焦距 (mm)</label>
+                                    <input type="text" class="form-input" id="focalLength35" placeholder="如 24">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">曝光补偿 (EV)</label>
+                                    <input type="text" class="form-input" id="biasInput" placeholder="如 0.3 或 -0.7" inputmode="decimal">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">光圈 (f/)</label>
+                                    <input type="text" class="form-input" id="fNumber" placeholder="如 1.78" inputmode="decimal">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">快门速度 (s)</label>
+                                    <input type="text" class="form-input" id="shutterInput" placeholder="如 1/120">
+                                </div>
+                            </div>
+                            <div class="form-hint" style="margin-top:8px;">选择设备后自动填入，可手动修改。</div>
+                        </div>
+                        <div class="settings-panel" data-panel="resolution" style="display:none;">
+                            <div class="form-group">
+                                <label class="form-label">快速选择（苹果真机原生尺寸，默认竖版，可切横版）</label>
+                                <div class="resolution-presets">
+                                    <button type="button" class="resolution-btn selected" data-original="1">保持原始</button>
+                                    <button type="button" class="resolution-btn" data-width="4032" data-height="3024">12 MP</button>
+                                    <button type="button" class="resolution-btn" data-width="5712" data-height="4284">24 MP</button>
+                                    <button type="button" class="resolution-btn" data-width="8064" data-height="6048">48 MP</button>
+                                </div>
+                                <div class="resolution-presets" style="margin-top:8px;">
+                                    <button type="button" class="resolution-btn selected" data-orientation="portrait">竖版（宽小高大）</button>
+                                    <button type="button" class="resolution-btn" data-orientation="landscape">横版（宽高对换）</button>
+                                </div>
+                            </div>
+                            <div class="form-grid" style="margin-top: 12px;">
+                                <div class="form-group">
+                                    <label class="form-label">宽度 (px)</label>
+                                    <input type="number" class="form-input" id="imageWidth" placeholder="如 3024">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">高度 (px)</label>
+                                    <input type="number" class="form-input" id="imageHeight" placeholder="如 4032">
+                                </div>
+                            </div>
+                            <div class="form-hint" style="margin-top: 8px;">输出为所选的精确像素尺寸；预设按方向换算填入宽高。</div>
+                        </div>
+                        <div class="settings-panel" data-panel="filesize" style="display:none;">
+                            <div class="form-group full-width">
+                                <label class="form-label">目标体积（常见档位，精确逼近）</label>
+                                <div class="filesize-btns">
+                                    <button type="button" class="filesize-btn active" data-follow="1">跟随原图</button>
+                                    <button type="button" class="filesize-btn" data-size="2.4">2.4MB</button>
+                                    <button type="button" class="filesize-btn" data-size="4.7">4.7MB</button>
+                                    <button type="button" class="filesize-btn" data-size="6.6">6.6MB</button>
+                                    <button type="button" class="filesize-btn" data-size="8.9">8.9MB</button>
+                                    <button type="button" class="filesize-btn" data-size="16.3">16.3MB</button>
+                                    <button type="button" class="filesize-btn" data-size="24.6">24.6MB</button>
+                                </div>
+                            </div>
+                            <div class="form-group full-width" style="margin-top:12px;">
+                                <label class="form-label">自定义目标体积 (MB)，留空跟随原图</label>
+                                <input type="number" class="form-input" id="customFileSize" placeholder="0.1 - 2048" step="0.1" min="0.1" max="2048" value="">
+                            </div>
+                            <div class="form-hint" style="margin-top:10px;">调整导出文件体积；原图已超过目标时跳过。留空或选「跟随原图」则保持不变。</div>
+                        </div>
+                        <div class="settings-panel" data-panel="naming" style="display:none;">
+                            <div class="form-group full-width">
+                                <label class="form-label">下载文件命名</label>
+                                <div class="filesize-btns">
+                                    <button type="button" class="filesize-btn" data-naming="original">保持原名</button>
+                                    <button type="button" class="filesize-btn active" data-naming="standard">IMG 标准名</button>
+                                </div>
+                            </div>
+                            <div class="form-hint" style="margin-top:10px;">保持原名 = 沿用原文件名；IMG 标准名 = 随机 IMG_XXXX。设置会记住，全局生效。</div>
+                        </div>
+                        <div class="settings-panel" data-panel="video" style="display:none;">
+                            <div class="form-group full-width">
+                                <label class="form-label">视频描述（QuickTime 描述）</label>
+                                <input type="text" class="form-input" id="videoCaption" placeholder="留空则不写入">
+                            </div>
+                            <div class="form-group full-width" style="margin-top:12px;">
+                                <label class="form-label">视频版权（QuickTime 版权）</label>
+                                <input type="text" class="form-input" id="videoCopyright" placeholder="留空则不写入">
+                            </div>
+                            <div class="form-hint" style="margin-top:10px;">填写后写入视频副本，画面不重新编码、不损画质。</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="settingsModalDone">完成</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 预览弹窗：显示当前最终效果信息 -->
+            <div class="modal-overlay" id="previewModal">
+                <div class="modal-content preview-modal-content">
+                    <div class="modal-header">
+                        <span class="modal-title">最终效果预览</span>
+                        <button class="modal-close" id="previewModalClose" type="button">×</button>
+                    </div>
+                    <div class="modal-body preview-modal-body" id="previewModalBody"></div>
+                </div>
+            </div>
+
+            <div class="site-footer" style="text-align: center; padding: 24px 0 100px; font-size: 12px; color: var(--text-secondary); opacity: 0.8; margin-top: 24px;">
+                <span>总访问量 <span id="stat_pv" style="font-weight: 600; color: var(--primary);">-</span> 次</span>
+                <span style="margin: 0 8px; opacity: 0.5;">|</span>
+                <span>访客 <span id="stat_uv" style="font-weight: 600; color: var(--primary);">-</span> 人</span>
+                <span style="margin: 0 8px; opacity: 0.5;">|</span>
+                <span>今日 <span id="stat_today" style="font-weight: 600; color: var(--primary);">-</span> 次 / <span id="stat_tuv" style="font-weight: 600; color: var(--primary);">-</span> 人</span>
+                <span style="margin: 0 8px; opacity: 0.5;">|</span>
+                <span>昨日 <span id="stat_yuv" style="font-weight: 600; color: var(--primary);">-</span> 人</span>
+                <span style="margin: 0 8px; opacity: 0.5;">|</span>
+                <span>导出 <span id="stat_exp" style="font-weight: 600; color: var(--primary);">-</span> 次</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar active" id="actionBar">
+        <button class="btn btn-primary" id="exportBtn">
+            <span class="bubble-tip" id="exportBubble">可以导出啦</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            <span id="exportBtnLabel">导出</span>
+        </button>
+    </div>
+
+    <div class="loading-overlay" id="loading">
+        <div class="spinner"></div>
+        <div class="loading-text" id="loadingText">处理中...</div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal-overlay" id="downloadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title">下载列表</span>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="download-hint" id="downloadHint">电脑端点下载；iOS 可长按保存到相册，也可以点分享保存到相册哦。</div>
+                <div class="download-list" id="downloadList"></div>
+            </div>
+            <div class="modal-footer split-footer" id="downloadModalFooter">
+                <button class="btn btn-secondary" id="shareAllBtn" type="button" hidden>分享</button>
+                <button class="btn btn-secondary" id="downloadAllBtn">逐个下载</button>
+                <button class="btn btn-primary" id="downloadZipBtn">打包 ZIP</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay modal-compact" id="supportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title">关于名言助手</span>
+                <button class="modal-close" id="supportClose">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="notice-highlight">名言助手 · 本地图片 EXIF 编辑器<br>作者：名言</div>
+                <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 18px; padding: 12px; background: rgba(255,255,255,0.4); border-radius: 12px; border: 1px solid rgba(255,255,255,0.6);">
+                    所有处理都在本机完成，图片不会上传。<br>
+                    使用问题、定制需求、合作，都欢迎联系作者 名言。
+                </div>
+                <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; word-break: break-all;">
+                    联系方式：<a href="https://tern.cc/MYDZ" target="_blank" rel="noopener noreferrer" onclick="return __openExternal(event)" style="color: #946CEE; font-weight: 600; text-decoration: none;">https://tern.cc/MYDZ</a>
+                </div>
+                <div style="display: flex; gap: 10px; flex-direction: column;">
+                    <a class="btn btn-primary modal-btn" href="https://tern.cc/MYDZ" target="_blank" rel="noopener noreferrer" onclick="return __openExternal(event)">🌐 打开联系方式</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay modal-compact" id="feedbackModal" style="display:none">
+        <div class="modal-content">
+            <div class="modal-header"><span class="modal-title">✉️ 意见反馈</span><button class="modal-close" id="feedbackClose">×</button></div>
+            <div class="modal-body"><textarea id="feedbackText" maxlength="200" placeholder="想实现的功能 / 遇到的问题" style="width:100%;height:96px;"></textarea><button type="button" class="btn btn-primary modal-btn" id="feedbackSend" style="margin-top:10px;">发送</button></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay modal-compact" id="groupListModal" style="display:none">
+        <div class="modal-content">
+            <div class="modal-header"><span class="modal-title">💬 交流群</span><button class="modal-close" id="groupListClose">×</button></div>
+            <div class="modal-body"><input class="form-input" id="qqGroupNumber" value="" readonly><button class="btn btn-primary modal-btn" id="copyGroupBtn" type="button">复制</button></div>
+        </div>
+    </div>
+
+    <button type="button" class="mini-program-fab donate" id="donateFab" aria-label="联系作者" style="font-size:13px;">联系</button>
+    <button type="button" class="mini-program-fab" id="miniProgramFab" aria-label="打开微信小程序" style="display:none;">小程序</button>
+
+    <div class="modal-overlay modal-compact" id="donateModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title">联系作者 名言</span>
+                <button class="modal-close" id="donateClose">×</button>
+            </div>
+            <div class="modal-body">
+                <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px;">
+                名言助手 · 本地图片 EXIF 编辑器<br>作者：名言<br>有问题随时找我。
+                </div>
+                <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; word-break: break-all;">
+                    联系方式：<a href="https://tern.cc/MYDZ" target="_blank" rel="noopener noreferrer" onclick="return __openExternal(event)" style="color: #946CEE; font-weight: 600; text-decoration: none;">https://tern.cc/MYDZ</a>
+                </div>
+                <a class="btn btn-primary modal-btn" href="https://tern.cc/MYDZ" target="_blank" rel="noopener noreferrer" onclick="return __openExternal(event)" style="background: linear-gradient(135deg, #946CEE 0%, #B18CFF 100%); box-shadow: 0 2px 8px rgba(148, 108, 238, 0.35);">🌐 打开联系方式</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay modal-compact" id="miniProgramModal" style="display:none">
+        <div class="modal-content">
+            <div class="modal-header"><span class="modal-title">📱 小程序</span><button class="modal-close" id="miniProgramClose">×</button></div>
+            <div class="modal-body"><div style="font-size:13px;">请使用网页版或 App。</div></div>
+        </div>
+    </div>
+
+    <script src="js/app.js?v=20261019-3"></script>
+    <script>
+    if ('serviceWorker' in navigator && location.protocol === 'https:') {
+      window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+    }
+    </script>
+</body>
+</html>
