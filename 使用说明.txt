@@ -1,0 +1,43 @@
+名言助手 · iOS 工程使用说明（液态玻璃版）
+================================================
+
+一、这是什么
+这个工程把「名言助手」网页版包成 iPhone App。
+· 界面已重做为 iOS 26 风格的液态玻璃（半透明磨砂 + 边缘高光 + 背景彩色光场），
+  明亮 / 深色两套主题会自动跟随手机系统切换。
+· 排版按分组卡片重新排过：拍摄信息、输出设置各成一组，间距放松，不再是挤在一起的一长条。
+· App 名称、图标、作者信息均为「名言」。
+· 联系方式 https://tern.cc/MYDZ 保留两个入口：首页右上角「联系作者」、
+  右下角圆形「联系」按钮，点击用系统浏览器（Safari）打开。
+
+二、打成 ipa（必须在 Mac 上用 Xcode 编译签名，这是苹果的硬性规定）
+1. 解压后双击 MyWords.xcodeproj 打开
+2. 左侧点项目 MyWords → TARGETS 里的 MyWords → Signing & Capabilities
+   · Team：选你的 Apple ID（免费账号也能装自己手机，7 天有效期）
+   · Bundle Identifier：改成没被占用的，例如 com.nide.mingyan
+3. 顶部运行设备选「Any iOS Device (arm64)」
+4. 菜单 Product → Archive
+5. 归档完成后在 Organizer 点 Distribute App
+   → 按你的证书选 Development / Ad Hoc / Enterprise → Export
+   → 导出的文件夹里就是 .ipa
+
+三、装到手机
+· 有开发者证书：Xcode 直接 Run，或用 Apple Configurator、爱思助手安装 ipa
+· 只想自己用：免费 Apple ID 就够，7 天到期重新 Run 一次
+
+四、不想折腾 Mac
+直接用网页版：https://mingyan-zhushou-8f3q.web.zaka.live
+Safari 打开 → 分享 → 添加到主屏幕，图标和名字都是「名言助手」，
+全屏使用、支持离线，用起来跟 App 一样。
+
+五、改内容
+网页代码在 MyWords/www 目录：
+· index.html            页面结构
+· css/style.css         基础样式
+· css/liquid-glass.css  液态玻璃主题层（颜色、玻璃质感、间距都在这）
+· js/app.js             功能逻辑
+改完重新 Archive 即可。
+
+六、小提示
+· 想要更透/更实的玻璃，改 css/liquid-glass.css 里 --lg-tint 的透明度即可。
+· 背景的彩色光场在 body::before 里，想换色改那几行 radial-gradient。
